@@ -5,5 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Weather Now</title>
   </head>
-  <body></body>
+  <body>
+    <div id="app">
+      <search-form :app-id="appId" @new-report="saveReport"></search-form>
+    </div>
+  </body>
 </html>

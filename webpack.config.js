@@ -6,8 +6,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: ['vue-style-loader', 'css-loader', 'sass-loader'],
+        test: /\.s?css$/,
+        use: [
+          'vue-style-loader',
+          { loader: 'css-loader', options: { sourceMap: true } },
+          'sass-loader',
+        ],
       },
       {
         test: /\.vue$/,
@@ -29,8 +33,8 @@ module.exports = {
       },
     ],
   },
-  mode: 'development',
-  entry: './src/index.js',
+  // mode: 'development',
+  entry: ['@babel/polyfill', './src/index.js'],
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './dist',
