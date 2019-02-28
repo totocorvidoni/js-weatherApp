@@ -1,7 +1,7 @@
 <template>
-  <form action="#" @submit.prevent="$emit('new-report', getReport(city))">
-    <input type="search" placeholder="Example 'Trondheim'" v-model="city">
-    <input type="submit">
+  <form @submit.prevent="$emit('new-report', getReport(city))">
+    <input type="search" placeholder="Example: 'Trondheim'" v-model="city">
+    <input type="submit" value="Go!">
   </form>
 </template>
 
@@ -37,7 +37,7 @@ export default {
         country: rawReport.sys.country,
         humidity: rawReport.main.humidity,
         pressure: rawReport.main.pressure,
-        temp: rawReport.main.temp,
+        temp: Math.floor(rawReport.main.temp),
         weather: {
           description: rawReport.weather[0].description,
           main: rawReport.weather[0].main
@@ -61,11 +61,36 @@ export default {
         this.city = "";
         this.$emit("toggle-loading");
       }
-    },
+    }
   }
 };
 </script>
 
-<style lang="sass">
+<style lang="scss">
+form {
+  align-self: center;
+  padding: 0 1em 1em 1em;
 
+  [type="search"] {
+    border: none;
+    line-height: 24pt;
+    border-radius: 0.5em;
+    padding: 0 0.5em;
+  }
+
+  [type="submit"] {
+    background: slategrey;
+    border: 1px solid transparent;
+    border-radius: 0.5em;
+    font-size: 1.1em;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    padding: 0.5em;
+
+    &:hover {
+      border: 1px solid white;
+    }
+  }
+}
 </style>

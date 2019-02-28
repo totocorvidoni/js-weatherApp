@@ -1,28 +1,34 @@
 <template>
   <div id="report">
     <div v-if="loading">
-      <span>loading...</span>
+      <h1>loading...</h1>
     </div>
     <div v-else-if="isEmpty(info)">
-      <span>Look for a city</span>
+      <h1>Look for a city</h1>
     </div>
     <div v-else>
       <h1>{{ title }}</h1>
       <main>
-        <div id="temp">{{ info.temp}}°</div>
+        <div id="temp">{{ info.temp }}°</div>
         <div id="weather">
-          <span id="weather-main">{{ info.weather.main }}</span>
-          <span id="weather-description">{{ info.weather.description }}</span>
+          <p id="weather-main">{{ info.weather.main }}</p>
+          <p id="weather-description">{{ info.weather.description }}</p>
         </div>
       </main>
-      <div class="info">
-        <div id="humidity">Humidity: {{info.humidity}}%</div>
-        <div id="pressure">Pressure: {{info.pressure}} hpa</div>
-        <div id="wind">
-          <span id="wind-speed">Wind: Speed {{info.wind.speed}} m/s</span>
-          <span id="wind-direction">Direction {{info.wind.direction}}°</span>
+      <section class="more-info">
+        <div class="info">
+          <h2 class="info-title">Humidity:</h2>
+          <p>{{ info.humidity }}%</p>
         </div>
-      </div>
+        <div class="info">
+          <h2 class="info-title">Pressure:</h2>
+          <p>{{ info.pressure }} hpa</p>
+        </div>
+        <div class="info">
+          <h2 class="info-title">Wind:</h2>
+          <p>{{ info.wind.speed }} m/s</p>
+        </div>
+      </section>
     </div>
   </div>
 </template>
@@ -42,16 +48,54 @@ export default {
     }
   },
   computed: {
-    title() {
+    title: function() {
       return `${this.info.city}, ${this.info.country}`;
+    },
+    wind: function() {
+      return `${this.info.wind.speed} m/s - ${this.info.wind.direction}°`;
     }
   }
 };
 </script>
 
 <style lang="scss">
-  #report {
-    display: grid;
-    place-content: center;
+#report {
+  display: grid;
+  grid-gap: 2em;
+  place-content: center;
+  padding: 1em;
+
+  h1 {
+    text-align: center;
   }
+}
+
+main {
+  display: flex;
+  justify-content: space-evenly;
+  font-weight: 700;
+}
+
+#temp {
+  font-size: 3em;
+}
+
+#weather {
+  text-align: center;
+  margin: auto 0;
+}
+
+#weather-description {
+  font-weight: 400;
+  font-style: italic;
+}
+
+.more-info {
+  display: flex;
+  text-align: justify;
+}
+
+.info {
+  padding: 0 1em;
+}
 </style>

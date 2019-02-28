@@ -1,10 +1,18 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,400i,700');
 
 $color: lightgrey;
+$app-background: slategrey;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 body {
   background: $color;
   font-family: 'Nunito', Arial, Helvetica, sans-serif;
+  color: white;
 }
 
 .wrapper {
@@ -16,5 +24,8 @@ body {
 
 #app {
   display: grid;
-  background: lightcyan;
+  place-items: center;
+  background: $app-background;
+  min-width: 500px;
+  min-height: 125px;
 }
