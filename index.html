@@ -6,14 +6,16 @@
     <title>Weather Now</title>
   </head>
   <body>
-    <div id="app">
-      <report :loading="loadingReport" :info="report"></report>
-      <search-form
-        :loading-report="loadingReport"
-        :app-id="appId"
-        @new-report="saveReport"
-        @toggle-loading="onToggleLoading"
-      ></search-form>
+    <div class="wrapper">
+      <div id="app">
+        <report :loading="loadingReport" :info="report"></report>
+        <search-form
+          :loading-report="loadingReport"
+          :app-id="appId"
+          @new-report="saveReport"
+          @toggle-loading="onToggleLoading"
+        ></search-form>
+      </div>
     </div>
   <script type="text/javascript" src="main.js"></script></body>
 </html>
