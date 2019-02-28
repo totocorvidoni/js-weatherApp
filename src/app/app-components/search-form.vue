@@ -1,6 +1,6 @@
 <template>
   <form action="#" @submit.prevent="$emit('new-report', getReport(city))">
-    <input type="search" placeholder="Look for your city" v-model="city">
+    <input type="search" placeholder="Example 'Trondheim'" v-model="city">
     <input type="submit">
   </form>
 </template>
@@ -8,7 +8,8 @@
 <script>
 export default {
   props: {
-    appId: String
+    appId: String,
+    loadingReport: Boolean
   },
   data() {
     return {
@@ -16,7 +17,7 @@ export default {
     };
   },
   methods: {
-    async getReport(cityName) {
+    async getRawReport(cityName) {
       try {
         const response = await fetch(
           `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=metric&APPID=${
@@ -24,7 +25,7 @@ export default {
           }`
         );
         const rawReport = await response.json();
-        return this.cleanRawReport(rawReport);
+        return rawReport;
       } catch (error) {
         alert(`Sorry there was an error: ${error.code}: ${error.message}`);
       }
@@ -46,7 +47,20 @@ export default {
         }
       };
       return cleanReport;
-    }
+    },
+
+    async getReport(cityName) {
+      this.$emit("toggle-loading");
+      try {
+        const rawReport = await this.getRawReport(cityName);
+        return this.cleanRawReport(rawReport);
+      } catch (error) {
+        alert(`Sorry there was an error on: ${error.code}: ${error.message}`);
+      } finally {
+        this.city = "";
+        this.$emit("toggle-loading");
+      }
+    },
   }
 };
 </script>
