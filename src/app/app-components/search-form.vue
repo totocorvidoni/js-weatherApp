@@ -34,6 +34,7 @@ export default {
     cleanRawReport(rawReport) {
       const cleanReport = {
         city: rawReport.name,
+        country: rawReport.sys.country,
         humidity: rawReport.main.humidity,
         pressure: rawReport.main.pressure,
         temp: rawReport.main.temp,
